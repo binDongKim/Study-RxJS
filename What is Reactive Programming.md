@@ -3,14 +3,10 @@
 ## Core Concepts
 
 - Reactive programming is programming with asynchronous data streams.
-- A stream can be used as an input to another one. 
-- You can *merge* two streams. You can *filter* a stream to get another one that has only those events you are interested in. You can *map* data values from one stream to another new one.
-- Observable can emit three different things: a value (of some type), an error, or a "completed" signal.
-- Consider that the "completed" takes place, for instance, when the current window or view containing that button is closed.
-- We capture these emitted events only **asynchronously**, by defining a function that will execute when a value is emitted, another function when an error is emitted, and another function when 'completed' is emitted.
-- The "listening" to the stream is called **subscribing**. The functions we are defining are **observers**. The stream is the **subject** (or **observable**) being observed.
-- Operators/functions return a **new stream** based on the original stream. It does not modify the original click stream in any way. This is a property called **immutability**.
 - Anything can be considered as a stream.
+- A stream can be used as an input to another one. 
+- Operators/functions return a **new stream** based on the original stream. It does not modify the original click stream in any way. This is a property called **immutability**.
+- You can *merge* two streams. You can *filter* a stream to get another one that has only those events you are interested in. You can *map* data values from one stream to another new one.
 
 
 
@@ -30,6 +26,18 @@
   - The application is passive in the data retrieval process: apart from subscribing to the observable source, it does not actively poll the source, but merely react to the data being pushed to it.
 
 
+
+## Observable in Reactive Programming
+
+- Observable can emit three different things: a value (of some type), an error, or a "completed" signal.
+
+- Consider that the "completed" takes place, for instance, when the current window or view containing that button is closed.
+
+- We capture these emitted events only **asynchronously**, by defining a function that will execute when a value is emitted, another function when an error is emitted, and another function when 'completed' is emitted.
+
+- The "listening" to the stream is called **subscribing**. The functions we are defining are **observers**. The stream is the **subject** (or **observable**) being observed.
+
+  ​
 
 ## Features of Observable that differs from Promise
 

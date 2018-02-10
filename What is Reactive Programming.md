@@ -16,14 +16,14 @@
 
 - Pull / Synchronous / Interactive
   - The Consumer determines when it receives data from the data Producer. The Producer itself is unaware of when the data will be delivered to the Consumer.
-  - Every JavaScript Function is a Pull system. The function is a Producer of data, and the code that calls the function is consuming it by "pulling" out *single/multiple* return value/values from its call.
   - The application actively polls a data source for more information by retrieving data from a sequence that represents the source.
   - The application is active in the data retrieval process: it decides about the pace of the retrieval by calling `next` at its own convenience.
+  - Every JavaScript Function is a Pull system. The function is a Producer of data, and the code that calls the function is consuming it by "pulling" out *single/multiple* return value/values from its call.
 - Push / Asynchronous / Reactive
   - The Producer determines when to send data to the Consumer. The Consumer is unaware of when it will receive that data.
-  - RxJS introduces Observables, a new Push system for JavaScript. An Observable is a Producer of multiple values, "pushing" them to Observers (Consumers).
   - The application gets information(data) by subscribing to a data stream (called observable sequence in RxJS), and any update is handed to it from the source.
   - The application is passive in the data retrieval process: apart from subscribing to the observable source, it does not actively poll the source, but merely react to the data being pushed to it.
+  - RxJS introduces Observables, a new Push system for JavaScript. An Observable is a Producer of multiple values, "pushing" them to Observers (Consumers).
 
 
 

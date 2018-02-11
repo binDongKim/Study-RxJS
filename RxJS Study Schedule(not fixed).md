@@ -2,10 +2,12 @@
 
 ## Schedule
 #### 1week
-- Reactive Programming 알아보기
+- What is Reactive Programming?
+- Core Concepts in RxJS - Part1: Three Features that make RxJS Powerful
 
 #### 2week
-- RxJS 핵심요소(Observable, Observer, Subscription, Operators, Subject + Schedulers?) 개괄적으로 살펴보기
+- Core Concepts in RxJS - Part2: The Essential Members in RxJS World
+- Observable, Observer, Subscription, Operators, Subject, Schedulers
 
 #### 3week
 - 중요 Operator 알아보기1(SwitchMap, Scan, TakeUnti 등)
@@ -25,3 +27,4 @@
 
 #### 8week
 - Angular with RxJS
+

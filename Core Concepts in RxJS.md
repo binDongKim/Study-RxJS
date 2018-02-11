@@ -1,4 +1,4 @@
-# Core Concepts in RxJS
+# Core Concepts in RxJS - Part1
 
 ## Three Features that make RxJS Powerful
 
@@ -77,17 +77,6 @@
       .scan((count, clientX) => count + clientX, 0)
       .subscribe(count => console.log(count));
     ```
-
-
-
-## The Essential Members in RxJS World 
-
-- Observable
-- Observer
-- Subscription
-- Operators
-- Subject
-- Schedulers
 
 
 

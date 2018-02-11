@@ -12,5 +12,4 @@ Documenting my understanding of RxJS
 ## Document List
 
 - [What is Reactive Programming](https://github.com/binDongKim/Study-RxJS/blob/master/What%20is%20Reactive%20Programming.md)
-- [Core Concepts in RxJS - Part 1](https://github.com/binDongKim/Study-RxJS/blob/master/Core%20Concepts%20in%20RxJS.md)
-
+- [Core Concepts in RxJS - Part 1](https://github.com/binDongKim/Study-RxJS/blob/master/Core%20Concepts%20in%20RxJS%20-%20Part%201.md)

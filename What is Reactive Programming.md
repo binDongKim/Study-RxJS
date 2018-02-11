@@ -30,14 +30,11 @@
 ## Observable in Reactive Programming
 
 - Observable can emit three different things: a value (of some type), an error, or a "completed" signal.
-
 - Consider that the "completed" takes place, for instance, when the current window or view containing that button is closed.
-
 - We capture these emitted events only **asynchronously**, by defining a function that will execute when a value is emitted, another function when an error is emitted, and another function when 'completed' is emitted.
-
 - The "listening" to the stream is called **subscribing**. The functions we are defining are **observers**. The stream is the **subject** (or **observable**) being observed.
 
-  ​
+
 
 ## Features of Observable that differs from Promise
 

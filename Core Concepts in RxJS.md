@@ -78,7 +78,7 @@
       .subscribe(count => console.log(count));
     ```
 
-    ​
+
 
 ## The Essential Members in RxJS World 
 
@@ -90,18 +90,6 @@
 - Schedulers
 
 
-
-## Observable
-
-## Observer
-
-## Subscription
-
-## Operators
-
-## Subject
-
-## Schedulers
 
 ## References
 

@@ -12,15 +12,14 @@
     button.addEventListener('click', () => console.log(Clicked ${++count} times));
     ```
 
+    - Using RxJS
 
-  - Using RxJS
-
-    ```javascript
-    var button = document.querySelector('button');
-    Rx.Observable.fromEvent(button, 'click')
-      .scan(count => count + 1, 0)
-      .subscribe(count => console.log(`Clicked ${count} times`));
-    ```
+      ```javascript
+      var button = document.querySelector('button');
+      Rx.Observable.fromEvent(button, 'click')
+        .scan(count => count + 1, 0)
+        .subscribe(count => console.log(`Clicked ${count} times`));
+      ```
 
 - **Flow**: The whole range of operators that helps you control how the events flow.
 

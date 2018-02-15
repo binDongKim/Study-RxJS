@@ -10,7 +10,16 @@
 
 - **Creating Observables**
 
-  - `Rx.Observable.create` operator is an alias for the `Observable` constructor, and it takes one argument: The _`subscribe` function_.
+  - `Rx.Observable.create` operator is an alias for the `Observable` constructor, and it takes one argument: The _`subscribe` function_ (Note: here, the _`subscribe` function_ doesn't indicate Observable prototype `subscribe` function. It simply indicates the function which the `create` operator takes as an argument.)
+
+    ```javascript
+    var observable = Rx.Observable.create(function subscribe(observer) {
+      var id = setInterval(() => {
+        observer.next('hi')
+      }, 1000);
+    });
+    ```
+
   - Observables can be created with `create`, but usually we use the so-called *creation operators*, like `of`, `from`, `interval`, etc.
 
 - **Subscribing to Observables**

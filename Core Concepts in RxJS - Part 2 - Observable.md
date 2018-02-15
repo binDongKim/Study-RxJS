@@ -1,4 +1,4 @@
-# Core Concepts in RxJS - Part2 - Observable
+# Core Concepts in RxJS - Part 2 - Observable
 
 ## What is Observable?
 

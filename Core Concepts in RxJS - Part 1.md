@@ -1,4 +1,4 @@
-# Core Concepts in RxJS - Part1
+# Core Concepts in RxJS - Part 1
 
 ## Three Features that make RxJS Powerful
 

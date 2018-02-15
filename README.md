@@ -16,4 +16,5 @@ Documenting my understanding of RxJS
 - [Core Concepts in RxJS - Part 2 - Observable](https://github.com/binDongKim/Study-RxJS/blob/master/Core%20Concepts%20in%20RxJS%20-%20Part2%20-%20Observable.md)
 - [Core Concepts in RxJS - Part 2 - Observer](https://github.com/binDongKim/Study-RxJS/blob/master/Core%20Concepts%20in%20RxJS%20-%20Part%202%20-%20Observer.md)
 - [Core Concepts in RxJS - Part 2 - Subscription](https://github.com/binDongKim/Study-RxJS/blob/master/Core%20Concepts%20in%20RxJS%20-%20Part%202%20-%20Subscription.md)
+- [Core Concepts in RxJS - Part 2 - Subject](https://github.com/binDongKim/Study-RxJS/blob/master/Core%20Concepts%20in%20RxJS%20-%20Part%202%20-%20Subject.md)
 

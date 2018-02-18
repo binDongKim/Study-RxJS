@@ -38,7 +38,7 @@
   40
   ```
 
-  *Notice that a subscribe to `output` will cause `input` Observable to be subscribed. We call this an "operator subscription chain".*
+  Notice that a subscribe to `output` causes `input` Observable to be subscribed. We call this an *operator subscription chain*.
 
 ## Instance Operators vs Static Operators
 
@@ -57,15 +57,13 @@
         });
       });
     }
-    ```
 
-    *Notice how the `input` Observable is not a function argument anymore, it is assumed to be the `this` object.* And Instance Operators would be used like below:
-
-    ```javascript
     var observable = Rx.Observable.from([1, 2, 3, 4]).multiplyByTen();
 
     observable.subscribe(x => console.log(x));
     ```
+
+    Notice how the `input` Observable is not a function argument anymore, it is assumed to be the `this` object.
 
 - **Static Operators**
 

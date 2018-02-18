@@ -7,7 +7,7 @@
 
 #### 2week
 - Core Concepts in RxJS - Part2: The Essential Members in RxJS World
-- Observable, Observer, Subscription, Operators, Subject, Schedulers
+- Observable, Observer, Subscription, Operators, Subject, Scheduler
 
 #### 3week
 - 중요 Operator 알아보기1(SwitchMap, Scan, TakeUnti 등)

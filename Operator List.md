@@ -30,32 +30,32 @@
 
 - Example 1.
 
-  ```javascript
-  const firstTimer$ = timer(0, 1000); // emit 0, 1... after every second, starting from now
-  const secondTimer$ = timer(500, 1000); // emit 0, 1... after every second, starting 0.5s from now
-  const combinedTimers = combineLatest(firstTimer$, secondTimer$);
+```javascript
+const firstTimer$ = timer(0, 1000); // emit 0, 1... after every second, starting from now
+const secondTimer$ = timer(500, 1000); // emit 0, 1... after every second, starting 0.5s from now
+const combinedTimers = combineLatest(firstTimer$, secondTimer$);
 
-  combinedTimers.subscribe(value => console.log(value));
-  // Logs
-  // [0, 0] after 0.5s
-  // [1, 0] after 1s
-  // [1, 1] after 1.5s
-  // [2, 1] after 2s
-  ```
+combinedTimers.subscribe(value => console.log(value));
+// Logs
+// [0, 0] after 0.5s
+// [1, 0] after 1s
+// [1, 1] after 1.5s
+// [2, 1] after 2s
+```
 
 - Example 2.
 
-  ```javascript
-  const weight$ = of(70, 72, 76, 79, 75);
-  const height$ = of(1.76, 1.77, 1.78);
-  const bmi = combineLatest(weight$, height$, (w, h) => w / (h * h));
+```javascript
+const weight$ = of(70, 72, 76, 79, 75);
+const height$ = of(1.76, 1.77, 1.78);
+const bmi = combineLatest(weight$, height$, (w, h) => w / (h * h));
 
-  bmi.subscribe(x => console.log('BMI is ' + x));
-  // Logs
-  // BMI is 24.212293388429753
-  // BMI is 23.93948099205209
-  // BMI is 23.671253629592222
-  ```
+bmi.subscribe(x => console.log('BMI is ' + x));
+// Logs
+// BMI is 24.212293388429753
+// BMI is 23.93948099205209
+// BMI is 23.671253629592222
+```
 
-  ​
+
 

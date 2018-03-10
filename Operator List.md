@@ -16,6 +16,8 @@
 
 ## Transformation
 
+- [pluck](#pluck)
+
 ## Utility
 
 ---
@@ -58,4 +60,44 @@ bmi.subscribe(x => console.log('BMI is ' + x));
 ```
 
 
+
+### pluck
+
+<img src="http://reactivex.io/rxjs/img/pluck.png" alt="combineLatest" style="width: 600px; height: 300px">
+
+**Signature**: `pluck(properties: ...string): Observable`
+
+`pluck` *maps* each source value to the specified (nested) property. The given string values describe the path to the object(the source value) and `pluck` retrieves the value of the specified (nested) property from all values in the source Observable. If a property can't be resolved, it will return `undefined` for that value.
+
+The difference from `map` operator is that you can perform an operation with `map` like,
+
+```javascript
+.map(user => user.age > 18 ? 'major': 'minor')
+```
+
+which you can't do with `pluck`. It simply picks one of the nested properties of each emitted value. A convenient feature `pluck` offers is that you can traverse the object tree without having to be worried for falling into referencing `null` property. 
+
+- Example 1.
+
+```javascript
+const source$ = from([
+  { name: 'Joe', age: 30, job: { title: 'Developer', language: 'JavaScript' } },
+  { name: 'Sarah', age: 35 }
+]);
+const example = source.pipe(pluck('job', 'title'));
+
+exmaple.subscribe((val) => console.log(val));
+// Logs
+// Developer
+// undefined
+```
+
+- Example 2.
+
+```javascript
+const clicks = Rx.Observable.fromEvent(document, 'click');
+const tagNames = clicks.pluck('target', 'tagName');
+
+tagNames.subscribe(x => console.log(x));
+```
 

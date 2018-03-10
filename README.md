@@ -19,6 +19,6 @@ Documenting my understanding of RxJS
 - [Core Concepts in RxJS - Part 2 - Subject](https://github.com/binDongKim/Study-RxJS/blob/master/Core%20Concepts%20in%20RxJS%20-%20Part%202%20-%20Subject.md)
 - [Core Concepts in RxJS - Part 2 - Operators](https://github.com/binDongKim/Study-RxJS/blob/master/Core%20Concepts%20in%20RxJS%20-%20Part%202%20-%20Operators.md)
 - [Core Concepts in RxJS - Part 2 - Scheduler](https://github.com/binDongKim/Study-RxJS/blob/master/%5BLater%5DCore%20Concepts%20in%20RxJS%20-%20Part%202%20-%20Scheduler.md)
-- [Operator List](#https://github.com/binDongKim/Study-RxJS/blob/master/Operator%20List.md)
+- [Operator List](https://github.com/binDongKim/Study-RxJS/blob/master/Operator%20List.md)
 
 

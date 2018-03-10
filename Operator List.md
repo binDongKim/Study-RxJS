@@ -20,9 +20,9 @@
 
 ## Utility
 
----
 
-### combineLatest
+
+## combineLatest
 
 <img src="http://reactivex.io/rxjs/img/combineLatest.png" alt="combineLatest" style="width: 550px; height: 300px">
 
@@ -61,7 +61,7 @@ bmi.subscribe(x => console.log('BMI is ' + x));
 
 
 
-### pluck
+## pluck
 
 <img src="http://reactivex.io/rxjs/img/pluck.png" alt="combineLatest" style="width: 600px; height: 300px">
 

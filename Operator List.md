@@ -28,7 +28,11 @@
 
 **Signature**: `combineLatest(observables: …Observable, project: function): Observable`
 
-`combineLatest` combines the most recent values from all the Observables passed as arguments. Whenever any Observable emits, it collects the most recent values from each Observable and emits those values as a form of *array* **unless** you transform it with the *project* function. If any input Observable errors, `combineLatest` will error immediately as well, and all other Observables will be unsubscribed. Note: `combineLatest` will not emit an initial value until each observable emits at least one value. If you are working with observables that only emit one value, or you only require the last value of each before completion, `forkJoin` is likely a better option.
+`combineLatest` combines the most recent values from all the Observables passed as arguments. Whenever any Observable emits, it collects the most recent values from each Observable and emits those values as a form of *array* **unless** you transform it with the *project* function. If any input Observable errors, `combineLatest` will error immediately as well, and all other Observables will be unsubscribed. 
+
+Note: `combineLatest` will not emit an initial value until each observable emits at least one value. 
+
+If you are working with observables that only emit one value, or you only require the last value of each before completion, `forkJoin` is likely a better option.
 
 - Example 1.
 
@@ -69,13 +73,15 @@ bmi.subscribe(x => console.log('BMI is ' + x));
 
 `pluck` *maps* each source value to the specified (nested) property. The given string values describe the path to the object(the source value) and `pluck` retrieves the value of the specified (nested) property from all values in the source Observable. If a property can't be resolved, it will return `undefined` for that value.
 
-The difference from `map` operator is that you can perform an operation with `map` like,
+What makes `map` operator different from `pluck` operator is that you can perform an operation with it like,
 
 ```javascript
 .map(user => user.age > 18 ? 'major': 'minor')
 ```
 
-which you can't do with `pluck`. It simply picks one of the nested properties of each emitted value. A convenient feature `pluck` offers is that you can traverse the object tree without having to be worried for falling into referencing `null` property. 
+Whereas you just take a value with `pluck`. It simply picks one of the nested properties of each emitted value. 
+
+One convenient feature `pluck` offers is that you can traverse the object tree without having to be worried for falling into referencing `null` property. 
 
 - Example 1.
 

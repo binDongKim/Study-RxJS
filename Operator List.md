@@ -17,6 +17,7 @@
 ## Transformation
 
 - [pluck](#pluck)
+- [mergeMap](#mergemap)
 
 ## Utility
 
@@ -107,3 +108,38 @@ const tagNames = clicks.pluck('target', 'tagName');
 tagNames.subscribe(x => console.log(x));
 ```
 
+
+
+## mergeMap
+
+<img src="http://reactivex.io/rxjs/img/mergeMap.png" style="width: 600px; height: 300px">
+
+**Signature**: `mergeMap(project: function: Observable, resultSelector:function: any, concurrent: number): Observable`
+
+The difference between `switchMap` and `mergeMap ` : 
+
+- When using `switchMap`, each inner subscription is completed when the source emits, allowing only one active inner subscription.
+- In contrast, `mergeMap` allows for multiple inner subscriptions to be active at the same time. 
+
+Note: If order must be maintained, `concatMap` could be the right choice.
+
+You can limit the number of active inner subscriptions at a time with the `concurrent` parameter.
+
+- Example 1.
+
+```javascript
+const letters = of('a', 'b', 'c');
+const result = letters.pipe(
+    mergeMap(x => interval(1000).map(i => x+i))
+);
+
+result.subscribe(x => console.log(x));
+// Logs
+// a0
+// b0
+// c0
+// a1
+// b1
+// c1
+// continues to list a,b,c with respective ascending integers
+```

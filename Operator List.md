@@ -3,6 +3,7 @@
 ## Combination
 
 - [combineLatest](#combinelatest)
+- [withLatestFrom](#withlatestfrom)
 
 ## Conditional
 
@@ -116,7 +117,7 @@ tagNames.subscribe(x => console.log(x));
 
 <img src="http://reactivex.io/rxjs/img/mergeMap.png" style="width: 600px; height: 300px">
 
-**Signature**: `mergeMap(project: function: Observable, resultSelector:function: any, concurrent: number): Observable`
+**Signature**: `mergeMap(project: function: Observable, resultSelector: function: any, concurrent: number): Observable`
 
 The difference between `switchMap` and `mergeMap ` : 
 
@@ -147,6 +148,7 @@ result.subscribe(x => console.log(x));
 ```
 
 
+
 ## skip
 
 <img src="http://reactivex.io/rxjs/img/skip.png" style="width: 600px; height: 300px">
@@ -166,6 +168,48 @@ const source = interval(1000);
 //skip the first 5 emitted values
 const example = source.pipe(skip(5));
 //output: 5...6...7...8........
+const subscribe = example.subscribe(val => console.log(val));
+```
+
+
+
+## withLatestFrom
+
+<img src="http://reactivex.io/rxjs/img/withLatestFrom.png" style="width: 600px; height: 300px">
+
+**Signature**: `withLatestFrom(other: Observable, project: function): Observable`
+
+`withLatestFrom` combines each value from the source Observable with the latest values from the other(input) Observables only when the source Observable emits a value. All the input Observables must emit at least one value for the output Observable to emit a value.
+
+The difference between `combineLatest` and `withLatestFrom`:
+
+- The output Observable from `withLatestFrom` only emits when the **source** Observable emits a value.
+- In contrast, the one from `combineLatest` emits values any of input Observables emits a value.
+
+`project` function can be passed to combine values. It receives the values in order of the passed Observable, where the first parameter is the value from the source Observable. `a$.withLatestFrom(b$, c$, (a1, b1, c1) => a1 + b1 + c1))`. If `project` function is not passed, arrays will be emitted on the ouput Observable.
+
+- Example 1.
+
+```javascript
+import { withLatestFrom, map } from 'rxjs/operators';
+import { interval } from 'rxjs/observable/interval';
+
+//emit every 5s
+const source = interval(5000);
+//emit every 1s
+const secondSource = interval(1000);
+const example = source.pipe(
+  withLatestFrom(secondSource),
+  map(([first, second]) => {
+    return `First Source (5s): ${first} Second Source (1s): ${second}`;
+  })
+);
+/*
+  "First Source (5s): 0 Second Source (1s): 4"
+  "First Source (5s): 1 Second Source (1s): 9"
+  "First Source (5s): 2 Second Source (1s): 14"
+  ...
+*/
 const subscribe = example.subscribe(val => console.log(val));
 ```
 

@@ -4,6 +4,7 @@
 
 - [combineLatest](#combinelatest)
 - [withLatestFrom](#withlatestfrom)
+- [zip](#zip)
 
 ## Conditional
 
@@ -210,6 +211,53 @@ const example = source.pipe(
   "First Source (5s): 2 Second Source (1s): 14"
   ...
 */
+const subscribe = example.subscribe(val => console.log(val));
+```
+
+
+
+## zip
+
+<img src="http://i1.wp.com/adamborek.com/wp-content/uploads/2017/05/zip_diagram.png?w=1080" style="width: 600px; height: 300px">
+
+**Signature**: `zip(observables: *, project: function): Observable`
+
+`zip` emits values as an array after all the input observables emit. The difference between `zip` and other combine operators such as `combineLatest`, `withLatestFrom` is that `zip` waits until there is a new value from each stream as you can see from the above diagram. In other words, `zip` always creates pairs from events with the same indexes (ex. 1A, 2B, 3C, 4D). This will continue until at least one inner observable completes.
+
+- Example 1.
+
+```javascript
+import { delay } from 'rxjs/operators';
+import { of } from 'rxjs/observable/of';
+import { zip } from 'rxjs/observable/zip';
+
+const sourceOne = of('Hello');
+const sourceTwo = of('World!');
+const sourceThree = of('Goodbye');
+const sourceFour = of('World!');
+//wait until all observables have emitted a value then emit all as an array
+const example = zip(
+  sourceOne,
+  sourceTwo.pipe(delay(1000)),
+  sourceThree.pipe(delay(2000)),
+  sourceFour.pipe(delay(3000))
+);
+//output: ["Hello", "World!", "Goodbye", "World!"]
+const subscribe = example.subscribe(val => console.log(val));
+```
+
+- Example 2.
+
+```javascript
+import { take } from 'rxjs/operators';
+import { interval } from 'rxjs/observable/interval';
+import { zip } from 'rxjs/observable/zip';
+
+//emit every 1s
+const source = interval(1000);
+//when one observable completes no more values will be emitted
+const example = zip(source, source.pipe(take(2)));
+//output: [0,0]...[1,1]
 const subscribe = example.subscribe(val => console.log(val));
 ```
 

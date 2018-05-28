@@ -186,7 +186,7 @@ The difference between `combineLatest` and `withLatestFrom`:
 - The output Observable from `withLatestFrom` only emits when the **source** Observable emits a value.
 - In contrast, the one from `combineLatest` emits values any of input Observables emits a value.
 
-`project` function can be passed to combine values. It receives the values in order of the passed Observable, where the first parameter is the value from the source Observable. `a$.withLatestFrom(b$, c$, (a1, b1, c1) => a1 + b1 + c1))`. If `project` function is not passed, arrays will be emitted on the ouput Observable.
+`project` function can be passed to combine values. It receives the values in order of the passed Observable, where the first parameter is the value from the source Observable. (e.g. `a$.withLatestFrom(b$, c$, (a1, b1, c1) => a1 + b1 + c1)`). If `project` function is not passed, arrays will be emitted on the ouput Observable.
 
 - Example 1.
 

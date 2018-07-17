@@ -10,6 +10,8 @@
 
 ## Creation
 
+- [timer](#timer)
+
 ## Error Handling
 
 ## Filtering
@@ -31,9 +33,9 @@
 
 <img src="http://reactivex.io/rxjs/img/combineLatest.png" alt="combineLatest" style="width: 550px; height: 300px">
 
-**Signature**: `combineLatest(observables: …Observable, project: function): Observable`
+**Signature**: `combineLatest(observables: …Observable): Observable`
 
-`combineLatest` combines the most recent values from all the Observables passed as arguments. Whenever any Observable emits, it collects the most recent values from each Observable and emits those values as a form of *array* **unless** you transform it with the *project* function. If any input Observable errors, `combineLatest` will error immediately as well, and all other Observables will be unsubscribed. 
+`combineLatest` combines the most recent values from all the Observables passed as arguments. Whenever any Observable emits, it collects the most recent values from each Observable and emits those values as a form of *array*. If any input Observable errors, `combineLatest` will error immediately as well, and all other Observables will be unsubscribed. 
 
 Note: `combineLatest` will not emit an initial value until each observable emits at least one value. 
 
@@ -59,13 +61,10 @@ combinedTimers.subscribe(value => console.log(value));
 ```javascript
 const weight$ = of(70, 72, 76, 79, 75);
 const height$ = of(1.76, 1.77, 1.78);
-const bmi = combineLatest(weight$, height$, (w, h) => w / (h * h));
+const bmi = combineLatest(weight$, height$).pipe(
+    map(x => resultSelector(...x));
 
-bmi.subscribe(x => console.log('BMI is ' + x));
-// Logs
-// BMI is 24.212293388429753
-// BMI is 23.93948099205209
-// BMI is 23.671253629592222
+function resultSelector(w, h) {}
 ```
 
 
@@ -118,7 +117,7 @@ tagNames.subscribe(x => console.log(x));
 
 <img src="http://reactivex.io/rxjs/img/mergeMap.png" style="width: 600px; height: 300px">
 
-**Signature**: `mergeMap(project: function: Observable, resultSelector: function: any, concurrent: number): Observable`
+**Signature**: `mergeMap(project: function: Observable, concurrent: number): Observable`
 
 The difference between `switchMap` and `mergeMap ` : 
 
@@ -161,7 +160,7 @@ result.subscribe(x => console.log(x));
 - Example 1.
 
 ```javascript
-import { interval } from 'rxjs/observable/interval';
+import { interval } from 'rxjs';
 import { skip } 'rxjs/operators';
 
 //emit every 1s
@@ -193,7 +192,7 @@ The difference between `combineLatest` and `withLatestFrom`:
 
 ```javascript
 import { withLatestFrom, map } from 'rxjs/operators';
-import { interval } from 'rxjs/observable/interval';
+import { interval } from 'rxjs';
 
 //emit every 5s
 const source = interval(5000);
@@ -220,7 +219,7 @@ const subscribe = example.subscribe(val => console.log(val));
 
 <img src="http://i1.wp.com/adamborek.com/wp-content/uploads/2017/05/zip_diagram.png?w=1080" style="width: 600px; height: 300px">
 
-**Signature**: `zip(observables: *, project: function): Observable`
+**Signature**: `zip(observables: *): Observable`
 
 `zip` emits values as an array after all the input observables emit. The difference between `zip` and other combine operators such as `combineLatest`, `withLatestFrom` is that `zip` waits until there is a new value from each stream as you can see from the above diagram. In other words, `zip` always creates pairs from events with the same indexes (ex. 1A, 2B, 3C, 4D). This will continue until at least one inner observable completes.
 
@@ -228,8 +227,7 @@ const subscribe = example.subscribe(val => console.log(val));
 
 ```javascript
 import { delay } from 'rxjs/operators';
-import { of } from 'rxjs/observable/of';
-import { zip } from 'rxjs/observable/zip';
+import { of, zip } from 'rxjs';
 
 const sourceOne = of('Hello');
 const sourceTwo = of('World!');
@@ -250,8 +248,7 @@ const subscribe = example.subscribe(val => console.log(val));
 
 ```javascript
 import { take } from 'rxjs/operators';
-import { interval } from 'rxjs/observable/interval';
-import { zip } from 'rxjs/observable/zip';
+import { interval, zip } from 'rxjs';
 
 //emit every 1s
 const source = interval(1000);
@@ -259,5 +256,37 @@ const source = interval(1000);
 const example = zip(source, source.pipe(take(2)));
 //output: [0,0]...[1,1]
 const subscribe = example.subscribe(val => console.log(val));
+```
+
+
+
+## timer
+
+<img src="http://reactivex.io/rxjs/img/timer.png" style="width: 600px; height: 300px">
+
+**Signature**: `timer(initialDelay: number | Date, period: number): Observable`
+
+`timer` creates an Observable that starts emitting after an `initialDelay` and emits an infinite sequence of ascending integers after each `period` of time thereafter. If `period` is not specified, the output Observable emits only one value, `0`. Otherwise , it emits an infinite sequence.
+
+- Example 1.
+
+```javascript
+import { timer } from 'rxjs';
+
+// emit 0 after 1 second then complete because second argument(period) is not provided.
+const source = timer(1000);
+// output: 0
+const subscribe = source.subscribe(val => console.log(val));
+```
+
+- Example 2.
+
+```javascript
+import { timer } from 'rxjs/observable/timer';
+
+// emit first value after 1 second and subsequent values every 2 seconds after
+const source = timer(1000, 2000);
+//output: 0,1,2,3,4,5......
+const subscribe = source.subscribe(val => console.log(val));
 ```
 

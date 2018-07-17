@@ -282,7 +282,7 @@ const subscribe = source.subscribe(val => console.log(val));
 - Example 2.
 
 ```javascript
-import { timer } from 'rxjs/observable/timer';
+import { timer } from 'rxjs';
 
 // emit first value after 1 second and subsequent values every 2 seconds after
 const source = timer(1000, 2000);

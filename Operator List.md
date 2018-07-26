@@ -5,6 +5,7 @@
 - [combineLatest](#combinelatest)
 - [withLatestFrom](#withlatestfrom)
 - [zip](#zip)
+- [startWith](#startwith)
 
 ## Conditional
 
@@ -288,5 +289,48 @@ import { timer } from 'rxjs';
 const source = timer(1000, 2000);
 //output: 0,1,2,3,4,5......
 const subscribe = source.subscribe(val => console.log(val));
+```
+
+
+
+## startWith
+
+<img src="http://reactivex.io/rxjs/img/startWith.png" style="width: 600px; height: 300px">
+
+**Signature**: `startWith(values: ...T): Observable`
+
+`startWith` returns an Observable that emits the items you specify as arguments before it begins to emit items emitted by the source Observable.
+
+- Example 1.
+
+```javascript
+import { startWith, scan } from 'rxjs/operators';
+import { of } from 'rxjs';
+
+const source = of('World!', 'Goodbye', 'World!');
+const example = source.pipe(
+  startWith('Hello'),
+  scan((acc, curr) => `${acc} ${curr}`)
+);
+/*
+  output:
+  "Hello"
+  "Hello World!"
+  "Hello World! Goodbye"
+  "Hello World! Goodbye World!"
+*/
+const subscribe = example.subscribe(val => console.log(val));
+```
+
+- Example 2.
+
+```javascript
+import { startWith } from 'rxjs/operators';
+import { interval } from 'rxjs';
+
+const source = interval(1000);
+const example = source.pipe(startWith(-3, -2, -1));
+//output: -3, -2, -1, 0, 1, 2....
+const subscribe = example.subscribe(val => console.log(val));
 ```
 

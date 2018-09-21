@@ -18,6 +18,7 @@
 ## Filtering
 
 - [skip](#skip)
+- [scan](#scan)
 
 ## Multicasting
 
@@ -25,6 +26,7 @@
 
 - [pluck](#pluck)
 - [mergeMap](#mergemap)
+- [exhaustMap](#exhaustmap)
 
 ## Utility
 
@@ -332,5 +334,77 @@ const source = interval(1000);
 const example = source.pipe(startWith(-3, -2, -1));
 //output: -3, -2, -1, 0, 1, 2....
 const subscribe = example.subscribe(val => console.log(val));
+```
+
+
+
+## scan
+
+<img src="http://reactivex.io/rxjs/img/scan.png" style="width: 600px; height: 300px">
+
+**Signature**: `scan(accumulator: function(acc: R, curr: T, index: number): R, seed T | R)): Observable<R>`
+
+`scan` works like `reduce` but unlike `reduce`, it emits the intermediate result on every emit of the source observable. `curr` is the value from the source observable and `acc` is what has been accumulated during the process. If you provide a `seed`, it will be used as the first `acc` .
+
+- Example 1.
+
+```javascript
+import { of } from 'rxjs';
+import { scan } from 'rxjs/operators';
+
+const source = of(1, 2, 3).pipe(scan((acc, curr) => acc + curr, 0));
+// log accumulated values
+// output: 1,3,6
+const subscribe = source.subscribe(val => console.log(val));
+```
+
+
+
+## exhaustMap
+
+<img src="http://reactivex.io/rxjs/img/exhaustMap.png" style="width: 600px; height: 300px">
+
+**Signature**: `exhaustMap(project: function: Observable): Observable`
+
+The difference between `concatMap` and `exhaustMap ` : 
+
+- When using `concatMap`, if the source observable emits another value while the inner observable hasn't completed with the previous value from the source observable, it will wait and once the inner observable completes, it will start to subscribe the inner observable with that value from the source observable. 
+- On the other hand, `exhaustMap` will completely ignore the outputs from the source observable while the inner observable is ongoing with the previous value from the source observable. Only after the inner observable with the previous value completes, it will start to subscribe to new inner observable.
+
+
+
+- Example 1.
+
+```javascript
+import { interval } from 'rxjs';
+import { exhaustMap, tap, take } from 'rxjs/operators';
+
+const firstInterval = interval(1000).pipe(take(10));
+const secondInterval = interval(1000).pipe(take(2));
+
+const exhaustSub = firstInterval
+  .pipe(
+    exhaustMap(f => {
+      console.log(`Emission of first interval: ${f}`);
+      return secondInterval;
+    })
+  )
+  /* When we subscribed to the first interval, it starts to emit a values (starting 0).
+  This value is mapped to the second interval which then begins to emit (starting 0).  
+  While the second interval is active, values from the first interval are ignored.
+  We can see this when firstInterval emits number 3,6, and so on...
+
+  Output:
+  Emission of first interval: 0
+  0
+  1
+  Emission of first interval: 3
+  0
+  1
+  Emission of first interval: 6
+  0
+  1
+  */
+  .subscribe(s => console.log(s));
 ```
 

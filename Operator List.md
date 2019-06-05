@@ -9,6 +9,8 @@
 
 ## Conditional
 
+- [iif](#iif)
+
 ## Creation
 
 - [timer](#timer)
@@ -406,5 +408,54 @@ const exhaustSub = firstInterval
   1
   */
   .subscribe(s => console.log(s));
+```
+
+
+
+## iif
+
+**Signature**: `iif(condition: () => boolean, obsOnTrue: Observable, obsOnFalse: Observable): Observable`
+
+
+
+`iif` returns the `obsOnTrue` observable if the `condition` returns true, or it returns the `obsOnFalse` observable if the `condition` returns false.
+
+- Example 1.
+
+``` javascript
+import { fromEvent, iif, of } from 'rxjs';
+import { mergeMap, map, throttleTime, filter } from 'rxjs/operators';
+
+const r$ = of(`I'm saying R!!`);
+const x$ = of(`X's always win!!`);
+
+fromEvent(document, 'mousemove')
+  .pipe(
+    throttleTime(50),
+    filter((move: MouseEvent) => move.clientY < 210),
+    map((move: MouseEvent) => move.clientY),
+    mergeMap(yCoord => iif(() => yCoord < 110, r$, x$))
+  )
+  .subscribe(console.log);
+```
+
+- Example 2.
+
+```javascript
+import { fromEvent, iif, of, interval, pipe } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
+
+interval(1000)
+  .pipe(
+    mergeMap(v =>
+      iif(
+        () => !!(v % 2),
+        of(v)
+        // if not supplied defaults to EMPTY
+      )
+    )
+    // output: 1,3,5...
+  )
+  .subscribe(console.log);
 ```
 

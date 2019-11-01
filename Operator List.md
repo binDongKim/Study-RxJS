@@ -6,6 +6,8 @@
 - [withLatestFrom](#withlatestfrom)
 - [zip](#zip)
 - [startWith](#startwith)
+- [concat](#concat)
+- [forkJoin](#forkjoin)
 
 ## Conditional
 
@@ -457,5 +459,121 @@ interval(1000)
     // output: 1,3,5...
   )
   .subscribe(console.log);
+```
+
+
+
+## concat
+
+<img src="http://reactivex.io/rxjs/img/concat.png" style="width: 600px; height: 300px">
+
+**Signature**: `concat(observables: ...*): Observable`
+
+
+
+ `concat` will subscribe to first input Observable and emit all its values, without changing or affecting them in any way. When that Observable completes, it will subscribe to then next Observable passed and, again, emit its values. This will be repeated, until the operator runs out of Observables. When last input Observable completes, `concat` will complete as well.
+
+- Example 1.
+
+``` javascript
+import { of, concat } from 'rxjs';
+
+concat(
+  of(1, 2, 3),
+  // subscribed after first completes
+  of(4, 5, 6),
+  // subscribed after second completes
+  of(7, 8, 9)
+)
+  // log: 1, 2, 3, 4, 5, 6, 7, 8, 9
+  .subscribe(console.log);
+
+```
+
+- Example 2.
+
+```javascript
+// RxJS v6+
+import { concat, empty } from 'rxjs';
+import { delay, startWith } from 'rxjs/operators';
+
+// elems
+const userMessage = document.getElementById('message');
+// helper
+const delayedMessage = (message, delayedTime = 1000) => {
+  return empty().pipe(
+    startWith(message),
+    delay(delayedTime)
+  );
+};
+
+concat(
+  delayedMessage('Get Ready!'),
+  delayedMessage(3),
+  delayedMessage(2),
+  delayedMessage(1),
+  delayedMessage('Go!'),
+  delayedMessage('', 2000)
+).subscribe((message: any) => (userMessage.innerHTML = message));
+```
+
+
+
+## forkJoin
+
+**Signature**:`forkJoin(...args, selector : function): Observable`
+
+
+
+`forkJoin` will wait for all passed observables to complete and then it will emit an array with last values from corresponding observables. If any input observables completes without emitting any value, `forkJoin` will complete at that moment as well and it will not emit anything either, even if it already has some last values from other observables. If there is an Observable that never completes, `forkJoin` will never complete as well,
+
+- Example 1.
+
+``` javascript
+// RxJS v6.5+
+import { ajax } from 'rxjs/ajax';
+import { forkJoin } from 'rxjs';
+
+/*
+  when all observables complete, provide the last
+  emitted value from each as dictionary
+*/
+forkJoin(
+  // as of RxJS 6.5+ we can use a dictionary of sources
+  {
+    google: ajax.getJSON('https://api.github.com/users/google'),
+    microsoft: ajax.getJSON('https://api.github.com/users/microsoft'),
+    users: ajax.getJSON('https://api.github.com/users')
+  }
+)
+  // { google: object, microsoft: object, users: array }
+  .subscribe(console.log);
+
+```
+
+- Example 2.
+
+```javascript
+// RxJS v6+
+import { delay, take } from 'rxjs/operators';
+import { forkJoin, of, interval } from 'rxjs';
+
+/*
+  when all observables complete, give the last
+  emitted value from each as an array
+*/
+const example = forkJoin(
+  //emit 'Hello' immediately
+  of('Hello'),
+  //emit 'World' after 1 second
+  of('World').pipe(delay(1000)),
+  //emit 0 after 1 second
+  interval(1000).pipe(take(1)),
+  //emit 0...1 in 1 second interval
+  interval(1000).pipe(take(2))
+);
+//output: ["Hello", "World", 0, 1]
+const subscribe = example.subscribe(val => console.log(val));
+
 ```
 
